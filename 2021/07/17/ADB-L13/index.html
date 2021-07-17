@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Echoid">
+
+
+
+
+
+<title>ADB-L13 Transaction &amp; Networking | Yumi&#39;s BlackHole</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yumi&#39;s BlackHole</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yumi&#39;s BlackHole</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">ADB-L13 Transaction &amp; Networking</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Echoid</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 17, 2021&nbsp;&nbsp;22:36:40</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/MDS/">MDS</a>
+                            
+                                <a href="/categories/MDS/COMP/">COMP</a>
+                            
+                                <a href="/categories/MDS/COMP/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                            
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Words:
+                        <a href="">1.3k</a>  
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Time:
+                        <a href="">4min</a>  
+                        </span>
+                    
+
+
+
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="l13-transaction-networking"><a class="markdownIt-Anchor" href="#l13-transaction-networking"></a> L13 Transaction &amp; Networking</h1>
+<p>如今基本上所有的数据库管理系统（DBMS）都是联网（networked）的。</p>
+<p>有的企业将使用客户-服务器（Client-server）的架构，这种架构采用单次commit/abort 指令的two-phased locking策略。而大部分企业使用的是multiple sites/servers的架构。（他们的客户可以在世界各地获取服务。）因此他们不希望把数据存在一个固定的地方，或者数据中心。这代表大部分用户使用的并不是Client-server模式，而更像是一个Distributed架构。</p>
+<p>以上就是一个Transactional 系统的一个问题。</p>
+<h1 id="distributed-vs-data-centre"><a class="markdownIt-Anchor" href="#distributed-vs-data-centre"></a> Distributed vs Data Centre</h1>
+<h2 id="distributed"><a class="markdownIt-Anchor" href="#distributed"></a> Distributed</h2>
+<img src="/2021/07/17/ADB-L13/image-20210717224921294.png" alt="image-20210717224921294" style="zoom:50%;">
+<p>请求可以在几个服务器里并行执行，nested transaction会变得更高效。</p>
+<p>可以看出T transaction里面有subtransaction abcd。</p>
+<h2 id="datacentre"><a class="markdownIt-Anchor" href="#datacentre"></a> DataCentre</h2>
+<img src="/2021/07/17/ADB-L13/image-20210717225106879.png" alt="image-20210717225106879" style="zoom:50%;">
+<p>平铺或者嵌套的transaction需要被多个服务器管理，当transaction到底的时候我们需要保证服务器commit/abort 0 或者 全部transaction。</p>
+<p>这时，一个服务器将变成coordinator，他需要确保全部server的进程、结果一致。</p>
+<p><strong>Two-phase commit protocol</strong> 是最常用的协议。</p>
+<h2 id="flat-distributed"><a class="markdownIt-Anchor" href="#flat-distributed"></a> Flat Distributed</h2>
+<img src="/2021/07/17/ADB-L13/image-20210717230922127.png" alt="image-20210717230922127" style="zoom:50%;">
+<p>可以看到有一个Client和三个participant。</p>
+<h2 id="two-phase-commit"><a class="markdownIt-Anchor" href="#two-phase-commit"></a> Two-phase commit</h2>
+<p>一个transaction 若是想要达成原子性（atomicity）则需要在最后满足如下要求：</p>
+<p>操作要么一个都没执行（carry out），要么全部都执行了。</p>
+<p>在Distributed transaction中，客户要求多个服务器执行操作，</p>
+<p>因此我们首先实施 <strong>One-phase atomic commit</strong> 协议：</p>
+<p>Coordinator 通知participants 是否要commit或abort。</p>
+<p>（而这个协议的问题就是不允许任意一个服务器abort，如果有一个服务器打算abort，则会出现dead lock或者crashed）。</p>
+<p>为了解决这个问题，我们开始采用 <strong>Two-phase atomic commit</strong>。</p>
+<p>Two-phase atomic commit 允许任何participant abort。</p>
+<ul>
+<li>Phase1： 每个participant 投票（vote），如果投票commit，则说明是<strong>prepared</strong>，prepared阶段不能反悔。如果这时候crash产生了，那更新必须被永久存档。</li>
+<li>Phase2： 每个participant 执行（carry out）此共同决策（Joint decision）</li>
+</ul>
+<p>注意，如果client或者任意participant请求了abort，那么coordinator需要立刻通知全部participants。如果client要求commit，接着我们会采用2PC。</p>
+<p>2PC phase标记：</p>
+<ul>
+<li>Voting phase：Coordinator向全部participant询问是否可以commit。如果回答是YES，那么participant将永久保存更新（records updates in permanent storage）并且投票。所以他们即使fail了仍然可以用备份覆盖。</li>
+<li>Completion phase：Coordinator告诉participant 是commit还是abort。</li>
+</ul>
+<h3 id="functions"><a class="markdownIt-Anchor" href="#functions"></a> Functions</h3>
+<h4 id="participant"><a class="markdownIt-Anchor" href="#participant"></a> Participant</h4>
+<ul>
+<li>canCommit: coordinator问participant可不可以 commit</li>
+<li>doCommit: coordinator告诉participant：commit是transaction的一部分</li>
+<li>doAbort：coordinator告诉participant：abort是transaction的一部分</li>
+</ul>
+<h4 id="coordinator"><a class="markdownIt-Anchor" href="#coordinator"></a> Coordinator</h4>
+<ul>
+<li>haveCommited：participant 告诉coordinator，确认一下自己已经commit了</li>
+<li>getDecision：由于延迟原因，当participant没有收到coordinator的回应时，询问coordinator，是否收到vote的YES。</li>
+</ul>
+<h3 id="协议细节protocol-details"><a class="markdownIt-Anchor" href="#协议细节protocol-details"></a> 协议细节（Protocol Details</h3>
+<p>）</p>
+<p><img src="/2021/07/17/ADB-L13/image-20210717233709810.png" alt="image-20210717233709810"></p>
+<h3 id="错误failures"><a class="markdownIt-Anchor" href="#错误failures"></a> 错误（Failures）</h3>
+<p>当错误产生时候会出现如下情况：</p>
+<ol>
+<li>2PC 使用了 <strong>Time-out action</strong> 来避免当进程产生crash和信息丢失的Blocking forever</li>
+<li>uncertain participant （step2）投了YES （通过getDecision方法询问coordinator得出的结果，而不是自己思考）</li>
+<li>Participant 已经执行了用户请求，但是并没有得到coordinator的followup，所以它可以进行单项abort（abort unilaterally）</li>
+<li>当Coordinator在Step1 等待投票时出现延迟，它可以自主abort，或者向participant发送doAbort 指令。</li>
+</ol>
+<h2 id="互联网系统的并发控制"><a class="markdownIt-Anchor" href="#互联网系统的并发控制"></a> 互联网系统的并发控制</h2>
+<p>每个服务器管理一组object，并负责确保它们在被并发transaction 访问（access）时保持一致（remain consistent）</p>
+<ul>
+<li>因此，每个服务器负责将concurrency control 应用在自己的object上</li>
+<li>distributed transaction的成员服务器将合作负责来确保他们可以有与串行等效的方法（serially equivalent manner ）</li>
+<li>独立（independently）的transaction将无法工作</li>
+<li>如果Transaction T和U在同一个服务器中访问object时出现了conflict，那么他们也必须在全部服务器上执行此顺序</li>
+<li>Coordinator将保证以上规则顺利执行</li>
+</ul>
+<h2 id="基于锁的系统"><a class="markdownIt-Anchor" href="#基于锁的系统"></a> 基于锁的系统</h2>
+<p>Local lock管理员决定着是否要授予锁，或者向transaction请求等待。</p>
+<p>然而</p>
+<ul>
+<li>当我们知道是否transaction内的全部服务器都被commited或被aborted之前我们无法release lock</li>
+<li>在Atomic commit protocol中object将保持锁定状态，并且其他transaction也不可访问它。(unavailable)
+<ul>
+<li>一个aborted的transaction将在phase 1之后释放</li>
+</ul>
+</li>
+</ul>
+<h2 id="时间印章顺序的并发控制"><a class="markdownIt-Anchor" href="#时间印章顺序的并发控制"></a> 时间印章顺序的并发控制</h2>
+<h3 id="single-server"><a class="markdownIt-Anchor" href="#single-server"></a> Single Server</h3>
+<ul>
+<li>在每个transaction 开始前做一个独特的时间印章（unique timestamp）</li>
+<li>将timestamp排序，得出来serial equivalence的committing object。</li>
+</ul>
+<h3 id="distributed-transaction"><a class="markdownIt-Anchor" href="#distributed-transaction"></a> Distributed transaction</h3>
+<ul>
+<li>
+<p>coordinator会给每一个transaction做一个globally unique timestamp</p>
+</li>
+<li>
+<p>每一个object都可以访问时间印章</p>
+</li>
+<li>
+<p>服务器合作反应（jointly responsible）来确保serial equivalence。</p>
+</li>
+</ul>
+<p>时间印章可以保证每个操作的conflict都可以被解决。</p>
+<p>如果时间印章导致了abort，那么coordinator会被提醒，并且abort全部participant。</p>
+<p>任何到达客户请求的commit都可以执行此操作。</p>
+<h2 id="优化并发控制"><a class="markdownIt-Anchor" href="#优化并发控制"></a> 优化并发控制</h2>
+<p>每一个transaction在commit之前都会验证。</p>
+<ul>
+<li>每一个transaction都会在开始验证的时候得到一个transaction number</li>
+<li>每一条transaction根据 transaction number来实施串行化</li>
+</ul>
+<p>如果服务器很多，那么每个服务器都会做独立验证（independent validation）</p>
+<p>如果是distributed transaction：</p>
+<p>验证将在phase 1或者2pc 协议中产生。transaction将使用globally unique number进行验证。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/COMP90050/"># COMP90050</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/07/18/ADB-L15/">ADB-L15 Fault Tolerance</a>
+            
+            
+            <a class="next" rel="next" href="/2021/07/17/ADB-L11/">ADB-L11/12 Concurrency Control 4</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Echoid | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

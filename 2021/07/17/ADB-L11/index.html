@@ -221,7 +221,7 @@
 
         <div class="post-content">
             <h1 id="l1112-concurrency-control-4"><a class="markdownIt-Anchor" href="#l1112-concurrency-control-4"></a> L11/12 Concurrency Control 4</h1>
-<p>多重并发允许的transaction仍可能面临conflict的问题，所以我们还是要尽可能找的更好的解决方案。</p>
+<p>多重并发控制的transaction仍可能面临conflict的问题，所以我们还是要尽可能找的更好的解决方案。</p>
 <p>本文将介绍一些基于锁的扩展方案。</p>
 <h2 id="粒度锁granularity-of-locks"><a class="markdownIt-Anchor" href="#粒度锁granularity-of-locks"></a> 粒度锁（Granularity of Locks）</h2>
 <ul>
@@ -246,8 +246,8 @@
 <p>意向锁：如果一个节点意向加意向锁，则说明他的下层正在被加锁。对任意节点加锁的时候必须对它的上层加意向锁。</p>
 <h3 id="加锁规则"><a class="markdownIt-Anchor" href="#加锁规则"></a> 加锁规则</h3>
 <ol>
-<li>从根到页进行加锁</li>
-<li>从页到根进行释放</li>
+<li>从根到叶进行加锁</li>
+<li>从叶到根进行释放</li>
 <li>如果要将一个非根节点加一个S或者IS，节点的其中一个parent必须保持IS或者IS以上模式（IS，IX，S，SIX，U，X）</li>
 <li>如果要将一个非根节点加一个X，U，SIX，IS，节点的其中一个parent必须保持IX或者IX以上模式（IX，SIX，U，X）</li>
 </ol>
@@ -376,6 +376,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/07/17/ADB-L13/">ADB-L13 Transaction & Networking</a>
             
             
             <a class="next" rel="next" href="/2021/07/17/ADB-L10/">ADB-L10 Concurrency Control 3</a>
