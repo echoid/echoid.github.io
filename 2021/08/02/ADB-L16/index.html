@@ -12,7 +12,7 @@
 
 
 
-<title>ADB-L08 Concurrency Control 1 (Part3) | Yumi&#39;s BlackHole</title>
+<title>ADB-L15 Fault Tolerance 2 | Yumi&#39;s BlackHole</title>
 
 
 
@@ -175,7 +175,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">ADB-L08 Concurrency Control 1 (Part3)</h1>
+            <h1 class="post-title">ADB-L15 Fault Tolerance 2</h1>
             
                 <div class="post-meta">
                     
@@ -184,31 +184,20 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">July 16, 2021&nbsp;&nbsp;21:05:00</a>
+                        Date: <a href="#">August 2, 2021&nbsp;&nbsp;10:17:37</a>
                         </span>
                     
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/MDS/">MDS</a>
-                            
-                                <a href="/categories/MDS/COMP/">COMP</a>
-                            
-                                <a href="/categories/MDS/COMP/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-                            
-                        </span>
                     
                     
                         <span class="post-count">
                     Words:
-                        <a href="">4</a>  
+                        <a href="">776</a>  
                         </span>
                     
                     
                         <span class="post-count">
                     Time:
-                        <a href="">1min</a>  
+                        <a href="">3min</a>  
                         </span>
                     
 
@@ -220,7 +209,100 @@
         </header>
 
         <div class="post-content">
-            <h1 id="l8-concurrency-control-1"><a class="markdownIt-Anchor" href="#l8-concurrency-control-1"></a> L8 Concurrency Control 1</h1>
+            <h1 id="l16-容错率-fault-tolerance"><a class="markdownIt-Anchor" href="#l16-容错率-fault-tolerance"></a> L16 容错率 Fault Tolerance</h1>
+<h2 id="从错误中恢复"><a class="markdownIt-Anchor" href="#从错误中恢复"></a> 从错误中恢复</h2>
+<p>恢复机制（Recovery mechanisms）可以确保数据库的一致性，原子性和耐用性。（ensure database consistency and transaction atomicity and durability despite failures）</p>
+<p>恢复算法分为两部分</p>
+<ol>
+<li>在Normal processing中take action，确保我们可以获得足够recover的信息</li>
+<li>在错误出现后实施，恢复数据库内容来确保原子性一致性和耐用性。</li>
+</ol>
+<h2 id="三个恢复的storage-核心"><a class="markdownIt-Anchor" href="#三个恢复的storage-核心"></a> 三个恢复的Storage 核心</h2>
+<ol>
+<li>
+<p>Volatile Storage 异变存储</p>
+<p>Crash的时候不能存活</p>
+<p>Main memory, cache memory</p>
+</li>
+<li>
+<p>Nonvalatile Storage/persistent Storage 持久性存储</p>
+<p>大部分情况可以在Crash的时候存货</p>
+<p>Disk，RAM</p>
+</li>
+<li>
+<p>Stable Storage</p>
+<p>可以从全部失败中存活</p>
+<p>多重副本</p>
+<p>可以通过在不同disk中存多个block副本的方法实现。</p>
+<p>然而在传输文件中依旧可能会导致inconsistent的情况，分为partial failure即终端block中含有错误信息。或者total failure 即终端block中从不被更新。</p>
+<p>防止传输错误的解决方法之一（两份备份？）</p>
+<p><img src="/2021/08/02/ADB-L16/image-20210802103204355.png" alt="image-20210802103204355"></p>
+</li>
+</ol>
+<h2 id="数据访问-data-access"><a class="markdownIt-Anchor" href="#数据访问-data-access"></a> 数据访问 Data Access</h2>
+<h3 id="physical-block"><a class="markdownIt-Anchor" href="#physical-block"></a> Physical Block</h3>
+<p>在Disk 磁盘上的Block</p>
+<h3 id="buffer-blocks"><a class="markdownIt-Anchor" href="#buffer-blocks"></a> Buffer Blocks</h3>
+<p>临时居住在主内存上的block。（residing temporarily in main memory）</p>
+<p>Block在磁盘和主内存间的移动可以总结为以下两个操作</p>
+<ol>
+<li>Input(B): 把B从physical block 传送到main memory（Buffer）</li>
+<li>Output(B): 将Buffer block B 传送到disk上，并且取代适当的physical block</li>
+</ol>
+<p>每一个Transaction在自己的个人工作领域都有保存着全部数据的访问和更新的备份数据。X在Ti存的备份叫xi。</p>
+<hr>
+<p>Transaction在system buffer block和他自己的个人工作领域转移数据的时候用以下操作。</p>
+<ol>
+<li>read(X): 将X的数据写进local variable xi里</li>
+<li>write(X)：将xi的数据写进buffer block里面的X。</li>
+</ol>
+<p>如果X不在memory里时候，两个操作在开始前都需要都需要一个inputB（因为是在buffer block里干活）</p>
+<ol>
+<li>先从实体disk到虚拟buffer （input）</li>
+<li>从buffer里读取到local xi（read）</li>
+<li>local xi 改写好复制到X里（write）</li>
+<li>output回到实体physical block里</li>
+</ol>
+<p><img src="/2021/08/02/ADB-L16/image-20210802104959432.png" alt="image-20210802104959432"></p>
+<h2 id="恢复和原子性-recovery-and-atomicity"><a class="markdownIt-Anchor" href="#恢复和原子性-recovery-and-atomicity"></a> 恢复和原子性 Recovery and atomicity</h2>
+<ul>
+<li>如果在没确认transaction 已经commit之前进行更改可能会导致数据库inconsistent</li>
+<li>为了确保原子性我们首先要把即将更改的信息放到stable里，不修改数据库。</li>
+<li>两种Approach 方法
+<ol>
+<li>Log-based recovery</li>
+<li>shadow-paging</li>
+</ol>
+</li>
+</ul>
+<h2 id="log-based-recovery"><a class="markdownIt-Anchor" href="#log-based-recovery"></a> Log-based Recovery</h2>
+<p>日志Log是存在stable storage里面的sequence日志信息。它记录了全部更新信息。</p>
+<p>Transaction Ti开始时候，日志为<Ti start></Ti></p>
+<p>Transaction Ti结束时候，日志为<Ti commit></Ti></p>
+<h3 id="deferred-database-modification"><a class="markdownIt-Anchor" href="#deferred-database-modification"></a> Deferred Database Modification</h3>
+<ul>
+<li>Deferred Database modification</li>
+</ul>
+<p>将所有的write 延迟的到partial commit里。</p>
+<p>Transaction只会在同时有start和commit的时候才会进行redo</p>
+<p><img src="/2021/08/02/ADB-L16/image-20210802113726492.png" alt="image-20210802113726492"></p>
+<ul>
+<li>Immediate Database modification</li>
+</ul>
+<p>允许database在write的时候更新uncommited transaction。</p>
+<p>这里我们必须记住新旧两个值。</p>
+<p>而且log必须要出现在write action之前。</p>
+<img src="/2021/08/02/ADB-L16/image-20210802114217151.png" alt="image-20210802114217151" style="zoom:50%;">
+<p>Redo和Undo 都应该是idempotent的。</p>
+<p><img src="/2021/08/02/ADB-L16/image-20210802133556842.png" alt="image-20210802133556842"></p>
+<h2 id="checkpoint"><a class="markdownIt-Anchor" href="#checkpoint"></a> Checkpoint</h2>
+<p>periodically 设定检查点。</p>
+<p><img src="/2021/08/02/ADB-L16/image-20210802173307777.png" alt="image-20210802173307777"></p>
+<h3 id="checkpoint-buffer"><a class="markdownIt-Anchor" href="#checkpoint-buffer"></a> Checkpoint Buffer</h3>
+<p>Log record buffering: log record 被缓存在main memory里面，而不是直接被output到stable storage里。</p>
+<p>当buffer里存储log records的block满了之后才会output到stable storage里面。</p>
+<p>或者强制执行log force 操作。</p>
+<p>Logforce是一个强制把log records 移动到stable storage里面的操作。</p>
 
         </div>
 
@@ -239,7 +321,11 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/COMP90050/"># COMP90050</a>
+                        <a href="/tags/MDS/"># MDS</a>
+                    
+                        <a href="/tags/COMP/"># COMP</a>
+                    
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"># 数据库</a>
                     
                         
                 </span>
@@ -252,10 +338,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/07/17/ADB-L9/">ADB-L09 Concurrency Control 2</a>
             
-            
-            <a class="next" rel="next" href="/2021/03/10/MAST90139/">SMDS-Week1</a>
+            <a class="next" rel="next" href="/2021/07/18/ADB-L15/">ADB-L15 Fault Tolerance 1 (Part5)</a>
             
         </section>
 

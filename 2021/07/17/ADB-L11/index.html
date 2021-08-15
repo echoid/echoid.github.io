@@ -208,7 +208,7 @@
                     
                         <span class="post-count">
                     Time:
-                        <a href="">6min</a>  
+                        <a href="">5min</a>  
                         </span>
                     
 
@@ -254,14 +254,13 @@
 <h3 id="意向加锁模式intent-lock-modes"><a class="markdownIt-Anchor" href="#意向加锁模式intent-lock-modes"></a> 意向加锁模式（Intent Lock Modes）</h3>
 <ul>
 <li>IS 允许IS 和S加在更细的粒度里加锁，同时可以防止其他X在当前节点操作。</li>
-<li>IX 允许IS，S，IX，SIX，U，X加在更细的粒度里加锁，同时可以防止其他S，SIX，X，U在当前节点操作。</li>
-<li>S 允许节点及其后代在更细的粒度中进行阅读，同时可以防止其他IX，X和SIX模式。</li>
-<li>SIX像IS一样允许它在当前节点以及子代节点中阅读。同时可以防止其他持有X，U，IX，SIX和S的在当前节点或者它的子代进行操作。但是允许IX，U和X在更细的粒度中进行操作。</li>
-<li>U 允许节点及其后代在更细的粒度中进行阅读，同时可以防止其他X, U, SIX, IX and IS模式在它或者它的子代中操作。</li>
-<li>X 允许所有对当前节点的写入，并且防止X，U，S，SIX，IX在当前节点和它的子代进行lock。</li>
+<li>IX 允许IS，S，IX，SIX，U，X加在更细的粒度里加锁，同时可以防止被加上其他S，SIX，X，U锁。</li>
+<li>S 允许节点及其后代在更细的粒度中进行阅读，同时可以防止被加上其他IX，X和SIX。</li>
+<li>SIX像IS一样允许它在当前节点以及子代节点中阅读。同时可以防止被加上其他X，U，IX，SIX和S的在当前节点或者它的子代进行操作。但是允许IX，U和X在更细的粒度中进行操作。</li>
+<li>U 允许节点及其后代在更细的粒度中进行阅读，同时可以防止被加上其他X, U, SIX, IX and IS模式在它或者它的子代中操作。</li>
+<li>X 允许所有对当前节点的写入，并且防止被加上其他X，U，S，SIX，IX在当前节点和它的子代进行lock。</li>
 </ul>
 <img src="/2021/07/17/ADB-L11/image-20210717015145582.png" alt="image-20210717015145582" style="zoom:67%;">
-<p>S和IS 是一家，除了IX给他们分开看了。</p>
 <h3 id="例"><a class="markdownIt-Anchor" href="#例"></a> 例</h3>
 <img src="/2021/07/17/ADB-L11/image-20210717015503444.png" alt="image-20210717015503444" style="zoom:50%;">
 <p>会导致DeadLock，因为T1和T2进行Slock之后，Slock会防止其他IX，X和SIX模式。</p>
@@ -377,7 +376,7 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/07/17/ADB-L13/">ADB-L13 Transaction & Networking</a>
+                <a class="prev" rel="prev" href="/2021/07/17/ADB-L13/">ADB-L13 Transaction & Networking(Part4)</a>
             
             
             <a class="next" rel="next" href="/2021/07/17/ADB-L10/">ADB-L10 Concurrency Control 3</a>
