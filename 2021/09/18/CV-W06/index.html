@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Echoid">
+
+
+
+
+
+<title>CV-W06 | Yumi&#39;s BlackHole</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yumi&#39;s BlackHole</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yumi&#39;s BlackHole</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">CV-W06</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Echoid</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 18, 2021&nbsp;&nbsp;1:05:39</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/COMP90086/">COMP90086</a>
+                            
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Words:
+                        <a href="">2.2k</a>  
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Time:
+                        <a href="">8min</a>  
+                        </span>
+                    
+
+
+
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="computer-vision-week6-feature-matching"><a class="markdownIt-Anchor" href="#computer-vision-week6-feature-matching"></a> Computer Vision Week6: Feature-matching</h1>
+<h2 id="local-feature"><a class="markdownIt-Anchor" href="#local-feature"></a> Local Feature</h2>
+<p>CNN的学习内容即为特征（Feature），学习到特征可能会受一定因素的影响（例如 Lighting，Translation，Image plane rotation，Scale，3D rotation / pose，Spatial等）。</p>
+<p>我们将特征识别分为三类：</p>
+<ol>
+<li>检测local feature，忽略空间位置（Example: bag of words / bag of features）</li>
+<li>local feature，少量空间位置（Example：Spatial pyramid models）</li>
+<li>检测local feature和空间位置之间的关系 （Example：Deformable parts models and Keypoint tracking / matching）</li>
+</ol>
+<h3 id="bag-of-words"><a class="markdownIt-Anchor" href="#bag-of-words"></a> Bag of Words</h3>
+<img src="/2021/09/18/CV-W06/image-20210918020014302.png" alt="image-20210918020014302" style="zoom:50%;">
+<p>BOW 是一个从NLP来的方法，原本是用一个表示词频的histogram来表示一个文档。而在图片识别中，每个words则代表每个local feature。可以看到在最下面的特征中，包含着人像，车和小提琴的全部特征。</p>
+<p>第一个histogram里皮肤和眼睛出现的频率很高，对应着这是一张人脸图。</p>
+<p><img src="/2021/09/18/CV-W06/image-20210918020152664.png" alt="image-20210918020152664"></p>
+<p>然而在图像中，同一个特征会有很多种出现的方式。例如不同人的眼睛以不同形式出现，可本质还是一个眼睛的特征。为了解决这种问题我们选择合并类似的local feature（使用K-mean clustering等方法）。</p>
+<h3 id="spatial-pyramids"><a class="markdownIt-Anchor" href="#spatial-pyramids"></a> Spatial Pyramids</h3>
+<p><img src="/2021/09/18/CV-W06/image-20210918022046676.png" alt="image-20210918022046676"></p>
+<p>Spatial Pyramid加入了一点空间信息，原本的思路是将bag of features在不同的图片scale下使用。</p>
+<p>注意 “在一个scale下检测特征再将其pooling到不同scale下” 与 “在不同scale下检测特征”得出的结果是不同的。</p>
+<img src="/2021/09/18/CV-W06/image-20210918022209673.png" alt="image-20210918022209673" style="zoom: 67%;">
+<p>上图是在一个scale下检测特征再将其pooling到不同scale下的例子。我们可以看出</p>
+<p>我们看到第一张图，三种特征的freq几乎相同。第二张图把特征scale到1/4 下，每个subimage里面的freq有些许区别。而第三张图可以看到三个feature的subimage可以明显看出区别。</p>
+<p>以上方法适合category-level识别任务（high invariance to object translation and pose）</p>
+<h2 id="feature-detection"><a class="markdownIt-Anchor" href="#feature-detection"></a> Feature detection</h2>
+<p>Feature Detection: 寻找图片中的关键点。（interest point or keypoints）</p>
+<h3 id="select-good-key-points"><a class="markdownIt-Anchor" href="#select-good-key-points"></a> Select Good key points</h3>
+<img src="/2021/09/18/CV-W06/image-20210918033125331.png" alt="image-20210918033125331" style="zoom:50%;">
+<p>图中黄色的window为选择的keypoint。一个好的key point应满足窗口内的信息容易被识别，而将窗口移动到任意方向时出现巨大强度变化（produce a large change in intensity，可以理解为每个方向的可以获取的信息各不相同）。第一张图在任意方向移动都不能获得特别的信息，因此不能被称之为a good key point。第二张图无法在vertical方向移动时获取信息，说明窗口内是edge信息。第三个是corner信息，向四个方向移动时获取的信息各不相同，因此corner是一个很不错的keypoint。</p>
+<h3 id="corner-detection"><a class="markdownIt-Anchor" href="#corner-detection"></a> Corner Detection</h3>
+<p>当window w(X, Y) 从U shift 到V的特征变化公式如下，常见的window function比如square 或者Gaussian。</p>
+<img src="/2021/09/18/CV-W06/image-20210918033459347.png" alt="image-20210918033459347" style="zoom:50%;">
+<img src="/2021/09/18/CV-W06/image-20210918034126425.png" alt="image-20210918034126425" style="zoom:50%;">
+<p>简化过的公式可以用通过M来计算E。M里包含着根据I做的x或者y的derivative。</p>
+<img src="/2021/09/18/CV-W06/image-20210918034210070.png" alt="image-20210918034210070" style="zoom:50%;">
+<img src="/2021/09/18/CV-W06/image-20210918034223115.png" alt="image-20210918034223115" style="zoom:50%;">
+<p>还可以用M的eigenvalues <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi></mrow><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">λ</span></span></span></span> 来进行corner detection。</p>
+<img src="/2021/09/18/CV-W06/image-20210918034629254.png" alt="image-20210918034629254" style="zoom:50%;">
+<p>如图所示，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>λ</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\lambda_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>λ</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\lambda_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 分别代表椭圆形的长和宽（？），而edge的椭圆形形状往往很长，而corner的椭圆形形状比较偏圆形。为了做corner detection， 我们尽可能选取 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>λ</mi><mn>1</mn></msub><mo>+</mo><msub><mi>λ</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\lambda_1 +  \lambda_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 很小 但是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>λ</mi><mn>1</mn></msub><mo>×</mo><msub><mi>λ</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\lambda_1 \times  \lambda_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 数字很大window。这样才能确保代表M eigenvalue的椭圆形能更偏向圆形。</p>
+<img src="/2021/09/18/CV-W06/image-20210918034513475.png" alt="image-20210918034513475" style="zoom:50%;">
+<h4 id="harris-corner"><a class="markdownIt-Anchor" href="#harris-corner"></a> Harris Corner</h4>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>λ</mi><mn>1</mn></msub><mo>+</mo><msub><mi>λ</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\lambda_1 +  \lambda_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>λ</mi><mn>1</mn></msub><mo>×</mo><msub><mi>λ</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\lambda_1 \times  \lambda_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 分别是M的determinant 和 trace。Harris Corner response是由det和trace组成的。</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo>=</mo><mi>d</mi><mi>e</mi><mi>t</mi><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo><mo>−</mo><mi>k</mi><mo stretchy="false">(</mo><mi>t</mi><mi>r</mi><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">R = det(M)-k(tr(M))^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mclose">)</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span> (k determined empirically, around 0.04 0.06)</p>
+<img src="/2021/09/18/CV-W06/image-20210918035622939.png" alt="image-20210918035622939" style="zoom:67%;">
+<h4 id="invariance-tolerance"><a class="markdownIt-Anchor" href="#invariance-tolerance"></a> Invariance / Tolerance</h4>
+<p>Corner detection 是基于图片梯度的，因此他是Invariant to translation 并且Tolerant to changes in lighting。</p>
+<p>由于Corner response 是基于eigenvalue的，所以他在面对image plane rotation的时候也是invariant的。</p>
+<p>但是Corner detection无法很好的解决scale 问题。（一scale就从corner变成edge了orz）</p>
+<img src="/2021/09/18/CV-W06/image-20210918035843123.png" alt="image-20210918035843123" style="zoom:67%;">  
+<p>也就是说Corner detection 可以应付translation，灯光，或者旋转，但是却不能很好的解决scale的问题。</p>
+<p>还有其他corner response function 如<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><msub><mi>λ</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>λ</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">min(\lambda_1,\lambda_2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mi>D</mi><mi>e</mi><mi>t</mi><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow><mrow><mi>t</mi><mi>r</mi><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{Det(M)}{tr(M)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.53em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">t</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p>以及其他corner detectors 如 Blob detectors 或者 machine learning-based detectors。</p>
+<h2 id="feature-descriptor"><a class="markdownIt-Anchor" href="#feature-descriptor"></a> Feature Descriptor</h2>
+<p>Feature Descriptor: 用一串short code 或者一组数字来去表示图片中的某个点</p>
+<p>当找到Keypoint之后有如下几种表达方法：</p>
+<ol>
+<li>Image patch</li>
+<li>handcrafted descriptors （SIFT，GLOH，BRIEF，BRISK，ORB）</li>
+<li>Machine-learned descriptors</li>
+</ol>
+<h4 id="scale-invariant-feature-transform-sift"><a class="markdownIt-Anchor" href="#scale-invariant-feature-transform-sift"></a> Scale Invariant Feature Transform (SIFT)</h4>
+<p><img src="/2021/09/18/CV-W06/image-20210918040619038.png" alt="image-20210918040619038"></p>
+<p>在interested point 周围画出格子，接着用histogram来表示计算的梯度。</p>
+<p>weight gradient magnitude是基于当前格子与interested point的距离决定的。</p>
+<p>所有的histogram需要进行normalization to sum to 1.</p>
+<p>如上图所示，patch size是16*16的。Histogram bins = 8 orientations。Grid = 4 x 4 cells。</p>
+<p>右图可以看为一个2*2的cell，我们可以看到每个sub cell里面都有一个八个方向的图像，指示着方向和大小。这里面的大小是经过normalization过的，因此一个sub cell里面的长度为8. 一共4 * 4 个cell，所以这个Descriptor length = 4 x 4 x 8 = 128。</p>
+<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结：</h3>
+<p>Feature descriptor是一个用于表达key point的方法。</p>
+<p>各种handcrafted feature descriptors 在encoding method，速度，descriptor size，以及feature detect 方法上选择不同，导致每个descriptor也各不相同。</p>
+<p>一个好的Feature descriptor需要达到invariance, 这样图像不管怎么转换 都可以利用descriptor match到相应的key point。</p>
+<h2 id="feature-matching"><a class="markdownIt-Anchor" href="#feature-matching"></a> Feature Matching</h2>
+<p>我们可以将feature matching看为model fitting问题。在这个情况下我们不仅仅要考虑寻找相同的特征本身，还需要考虑寻找相同的特征空间排列（Spatial arrangement）</p>
+<p>在Model Fitting中，我们需要制作一个可以解释correspondence 和matched points之间关系的模型。然而在模型制作时，经常会遇到outliers或者noisy这种常见问题。</p>
+<h3 id="hough-transform"><a class="markdownIt-Anchor" href="#hough-transform"></a> Hough Transform</h3>
+<p>霍夫变换(Hough Transform)是图像处理中的一种特征提取技术。</p>
+<ul>
+<li>如何检测lines？</li>
+</ul>
+<img src="/2021/09/18/CV-W06/image-20210918160132765.png" alt="image-20210918160132765" style="zoom:50%;">
+<p>它将image space中的feature point中映射到参数空间进行投票，通过检测累计结果的局部极值点得到一个符合某特定形状的点的集合。</p>
+<p>然而，真实图片往往有很多noisy，影响模型进行正确判断。为了解决noisy data的问题，我们用bin parameter的方法来对parameter聚类。如下图所示，相当于给point generalized化，从单看cell11变成了看cell11+10。</p>
+<img src="/2021/09/18/CV-W06/image-20210918160659514.png" alt="image-20210918160659514" style="zoom:50%;">
+<img src="/2021/09/18/CV-W06/image-20210918160826954.png" alt="image-20210918160826954" style="zoom:50%;">
+<p>而另一个问题则是如果穿过point的线的parameter是unbounded(两者都是dynamic的)，那么我们则改用polar representation来表示parameter。</p>
+<img src="/2021/09/18/CV-W06/image-20210918161142155.png" alt="image-20210918161142155" style="zoom:50%;">
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u014485485/article/details/78608967">https://blog.csdn.net/u014485485/article/details/78608967</a></p>
+<ul>
+<li>Parameters:
+<ol>
+<li>Bins size</li>
+<li>Threshold for peaks</li>
+<li>Number of peaks(lines)</li>
+<li>Minimun line length</li>
+<li>Maximum allowed gap (将segment看为同一条线)</li>
+</ol>
+</li>
+</ul>
+<p>Hough Transform采用Grid search的方法进行调参，因此当parameter数量增多时模型的效率下降。</p>
+<h3 id="ransac"><a class="markdownIt-Anchor" href="#ransac"></a> RANSAC</h3>
+<p>RANSAC 的全程是RANdom Sample Consensus（随机样本共识）</p>
+<p>RANSAC也是一个通过point投票来进行模型选择的。</p>
+<p>过程：</p>
+<ol>
+<li>随机选择N个sample point</li>
+<li>计算模型参数</li>
+<li>数清有多少point可以被当前模型解释出</li>
+<li>重复以上过程</li>
+</ol>
+<p>选出可以解释出最多point的模型。</p>
+<img src="/2021/09/18/CV-W06/image-20210918162521412.png" alt="image-20210918162521412" style="zoom:67%;">
+<img src="/2021/09/18/CV-W06/image-20210918162528321.png" alt="image-20210918162528321" style="zoom:67%;">
+<p>如图所示，同样是选取两个random point 来fit line model。 model1 只能解释六个点，而model2 可以解释14个点。</p>
+<p>Iteration 次数确保至少获得一个没有outlier的sample</p>
+<p>Threshold确保noisy大多位列在threshold区间内。</p>
+<h3 id="application-instance-recognition"><a class="markdownIt-Anchor" href="#application-instance-recognition"></a> Application: Instance recognition</h3>
+<p>同样物品，在不同角度下如果进行feature matching。</p>
+<img src="/2021/09/18/CV-W06/image-20210918163936579.png" alt="image-20210918163936579" style="zoom:67%;">
+<img src="/2021/09/18/CV-W06/image-20210918164035707.png" alt="image-20210918164035707" style="zoom:67%;">
+<ol>
+<li>在两张图内分别寻找keypoint，并且用descriptor来表示出keypoint</li>
+<li>寻找Candidate matches，在Image1中寻找image2中与之最相近的point。</li>
+</ol>
+<p>然而best matching 往往不是1v1的关系，每个keypoint往往都会有很多similar features。</p>
+<p>通常情况下使用ratio <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>1</mn><mi>s</mi><mi>t</mi><mtext> </mtext><mtext> </mtext><mtext> </mtext><mi>m</mi><mi>a</mi><mi>t</mi><mi>c</mi><mi>h</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow><mrow><mn>2</mn><mi>n</mi><mi>d</mi><mtext> </mtext><mtext> </mtext><mtext> </mtext><mi>m</mi><mi>a</mi><mi>c</mi><mi>h</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac{1st\,\,\,matching}{2nd\,\,\,maching}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4133239999999998em;vertical-align:-0.481108em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9322159999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight">d</span><span class="mspace mtight" style="margin-right:0.19516666666666668em;"></span><span class="mspace mtight" style="margin-right:0.19516666666666668em;"></span><span class="mspace mtight" style="margin-right:0.19516666666666668em;"></span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight">h</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.446108em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">t</span><span class="mspace mtight" style="margin-right:0.19516666666666668em;"></span><span class="mspace mtight" style="margin-right:0.19516666666666668em;"></span><span class="mspace mtight" style="margin-right:0.19516666666666668em;"></span><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight">h</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.481108em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>确保模型的robustness。如下图所示，当正确匹配的可能性下降的时候错误匹配的可能性随之上升。</p>
+<img src="/2021/09/18/CV-W06/image-20210918164457252.png" alt="image-20210918164457252" style="zoom:67%;">
+<p>穷举法选出相似点速度很慢（O(m * n)), 而如果用 approximate nearest neighbours的方法选择则可能会面临matching结果不是最优解的情况。即使使用Ration matching的方法，也需要权衡False Matching的rate。于是我们选择用RANSAC选择subset来解决y以上问题。</p>
+<ol start="3">
+<li>用RANSAC选择可以被transformation model解释出的subset。
+<ol>
+<li>随机选择需要fit model的点</li>
+<li>通过所选点计算parameter</li>
+<li>计算有多少点可以被当前模型解释</li>
+<li>重复以上操作直到到达max _iter 的次数，选择可以解释最多inliers的模型</li>
+<li>
+<img src="/2021/09/18/CV-W06/image-20210918170201779.png" alt="image-20210918170201779" style="zoom:67%;">
+</li>
+</ol>
+</li>
+</ol>
+<p>RANSAC Feature Matching：<a target="_blank" rel="noopener" href="https://people.cs.umass.edu/~elm/Teaching/ppt/370/370_10_RANSAC.pptx.pdf">https://people.cs.umass.edu/~elm/Teaching/ppt/370/370_10_RANSAC.pptx.pdf</a></p>
+<h4 id="transformation-方法"><a class="markdownIt-Anchor" href="#transformation-方法"></a> Transformation 方法</h4>
+<ul>
+<li>Affine transformations 是一种常见的transformation的方法，包括平移、缩放、旋转和剪切（translation, scale, rotation, and shear）</li>
+</ul>
+<img src="/2021/09/18/CV-W06/image-20210918165915326.png" alt="image-20210918165915326" style="zoom:50%;">
+<ul>
+<li>Projective transformation 是关于投射的transformation方法。它将Affine transformation和投射扭曲结合在了一起。</li>
+</ul>
+<img src="/2021/09/18/CV-W06/image-20210918170030608.png" alt="image-20210918170030608" style="zoom:67%;">
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"># 深度学习</a>
+                    
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"># 计算机视觉</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/09/19/CV-W07/">CV-W07</a>
+            
+            
+            <a class="next" rel="next" href="/2021/09/17/CV-W05/">CV-W05</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Echoid | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

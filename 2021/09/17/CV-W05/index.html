@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Echoid">
+
+
+
+
+
+<title>CV-W05 | Yumi&#39;s BlackHole</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Yumi&#39;s BlackHole</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Yumi&#39;s BlackHole</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">CV-W05</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Echoid</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 17, 2021&nbsp;&nbsp;23:05:39</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/COMP90086/">COMP90086</a>
+                            
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Words:
+                        <a href="">1.5k</a>  
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Time:
+                        <a href="">5min</a>  
+                        </span>
+                    
+
+
+
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="computer-vision-week5-cnn-for-image-classification-video-classification-and-self-supervised-learning"><a class="markdownIt-Anchor" href="#computer-vision-week5-cnn-for-image-classification-video-classification-and-self-supervised-learning"></a> Computer Vision Week5: CNN for image classification, video classification and self-supervised learning</h1>
+<p>目前为止我们介绍了基础的CNN模型，包括Convolutional layer，Max-pooling layer以及Separable Convolution。本周内容介绍了更加advanced的CNN。</p>
+<h2 id="image-classification"><a class="markdownIt-Anchor" href="#image-classification"></a> Image Classification</h2>
+<h3 id="alexnet"><a class="markdownIt-Anchor" href="#alexnet"></a> AlexNet</h3>
+<p><img src="/2021/09/17/CV-W05/image-20210917231504186.png" alt="image-20210917231504186"></p>
+<p>AlexNet的核心内容是在两个GPU上训练。也就是说Layer会根据filiter数分成两个（多个）平行component。注意在计算parameters和multiplication的时候将input的两个components视为一个整体计算。（如下图所示，input为两个128的layer，而再计算的时候直接用 128*2 = 256 计算，384也同理，再下一层拆为两个192。）</p>
+<img src="/2021/09/17/CV-W05/image-20210917231930740.png" alt="image-20210917231930740" style="zoom:67%;">
+<p>Alexnet也一样在训练中使用Dropout来防止Overfitting问题。Dropout rate是按照被zeroed out 的units的比例来决定的，通常情况保持在0.2-0.5左右。注意在test的时候不需要做drop out。</p>
+<p>Alexnet 使用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mi>e</mi><mi>l</mi><mi>u</mi><mo>:</mo><mi>f</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Relu: f(X) = max(0,x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">u</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span> 作为非线性激活函数。</p>
+<p>激活函数的作用在于让模型输出可以map成非线性结构，激活函数的选取和output的类型有关。（binary or non-zero等）</p>
+<p>Activation function further study：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/260970955">https://zhuanlan.zhihu.com/p/260970955</a></p>
+<h3 id="vgg"><a class="markdownIt-Anchor" href="#vgg"></a> VGG</h3>
+<img src="/2021/09/17/CV-W05/image-20210917233608776.png" alt="image-20210917233608776" style="zoom:50%;">
+<p>VGG16包含16个weight layers，VGG家族还有VGG19等，代表不同的layer数量。</p>
+<p>VGG本着加深比加宽有优势的原则，采用Stacking multiple convolution layer的方法。</p>
+<p>两个叠加的3<em>3 convolution要比 5 * 5 的有效感觉野(ERF: 是指特征图上的某个点能看到的输入图像的区域,即特征图上的点是由输入图像中感受野大小区域的计算得到的。 可以简单理解成两层 3</em>3 获取的信息比单层 5 * 5 的更高效。Paper：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1701.04128">https://arxiv.org/abs/1701.04128</a>)</p>
+<p>每当我们在模型里添加一个Kernel size为K的卷积层，感觉野即增加（K-1）。</p>
+<p>同时VGG的stacking multiple layer可以有效减少parameter和multiplication的数量，而且每一个卷积层都使用ReLU作为激活函数。总体来说让模型变得更加强大。</p>
+<h3 id="googlenet"><a class="markdownIt-Anchor" href="#googlenet"></a> GoogleNet</h3>
+<p>Inception module， 拥有Channel-wise concatenation。即input数据到几个不同的channel，最后利用哥哥channel的结果concatenate到一起进行下一步处理。</p>
+<img src="/2021/09/17/CV-W05/image-20210917233618595.png" alt="image-20210917233618595" style="zoom: 67%;">
+<p>在Inception Module 里经常因为modules更多导致计算成本增大。</p>
+<p>解决方案是使用dimensionality reduction方法（使用1*1 convolution layers）</p>
+<h3 id="resnet"><a class="markdownIt-Anchor" href="#resnet"></a> ResNet</h3>
+<p>ResNet本着层数越多，表现越好的原则，把层数发展到极致。然而层数增高导致的梯度问题会让模型变得过拟合。ResNet采用residual mapping（简单的来说就是跳级连接）的方法来避免模型退化。</p>
+<img src="/2021/09/17/CV-W05/image-20210917235715274.png" alt="image-20210917235715274" style="zoom:50%;">
+<p>Resnet：<a target="_blank" rel="noopener" href="https://www.jiqizhixin.com/graph/technologies/738e788b-0e3b-4a8f-bd04-e407c7137694">https://www.jiqizhixin.com/graph/technologies/738e788b-0e3b-4a8f-bd04-e407c7137694</a></p>
+<h3 id="mobilenet"><a class="markdownIt-Anchor" href="#mobilenet"></a> MobileNet</h3>
+<p>MobileNet 是用于移动视觉应用的高效卷积神经网络，使用depthwise separable convolution替换标准卷积。</p>
+<img src="/2021/09/17/CV-W05/image-20210918000236505.png" alt="image-20210918000236505" style="zoom:50%;">
+<p>Depthwise(DW)卷积与Pointwise(PW)卷积，合起来被称作Depthwise Separable Convolution(参见Google的Xception)，该结构和常规卷积操作类似，可用来提取特征，但相比于常规卷积操作，其参数量和运算成本较低。</p>
+<p>所以在量级网络（MobileNet）中会碰到这种结构。</p>
+<img src="/2021/09/17/CV-W05/image-20210918000430097.png" alt="image-20210918000430097" style="zoom:50%;">
+<img src="/2021/09/17/CV-W05/image-20210918000436660.png" alt="image-20210918000436660" style="zoom:50%;">
+<p>图1为普通卷积层，图2为Depthwise卷积。我们可以看出，图1中每个filter都存在给三个channel对应的kernal。而作为图2的Depthwise来说，每个channel只对应一个filters。</p>
+<h2 id="video-classification"><a class="markdownIt-Anchor" href="#video-classification"></a> Video classification</h2>
+<h3 id="single-frame-2d-cnn"><a class="markdownIt-Anchor" href="#single-frame-2d-cnn"></a> Single-frame 2D CNN</h3>
+<p>使用单张图片进行训练，用单帧的平均预测结果以生成视频级预测，这种方法的缺点就是缺少时间信息。（no temporal information）</p>
+<h3 id="2d-cnnpooling"><a class="markdownIt-Anchor" href="#2d-cnnpooling"></a> 2D CNN+Pooling</h3>
+<img src="/2021/09/17/CV-W05/image-20210918001735098.png" alt="image-20210918001735098" style="zoom:50%;">
+<img src="/2021/09/17/CV-W05/image-20210918003833725.png" alt="image-20210918003833725" style="zoom:50%;">
+<p>2D CNN将不同帧的图片分别放入CNN模型，再做maxpooling。即针对全部时间的图片数据，取出每个cell的max 。</p>
+<h3 id="3d-cnn"><a class="markdownIt-Anchor" href="#3d-cnn"></a> 3D CNN</h3>
+<p>3D CNN 使用 3d kernel。也就是说pooling和convolution在计算的时候size要再多加一个维度。</p>
+<img src="/2021/09/17/CV-W05/image-20210918004224686.png" alt="image-20210918004224686" style="zoom:50%;">
+<h3 id="其他框架"><a class="markdownIt-Anchor" href="#其他框架"></a> 其他框架</h3>
+<ol>
+<li>将CNN和 sequential 模型连接到一起，比如CNN+RNN</li>
+</ol>
+<h2 id="self-supervised-learning"><a class="markdownIt-Anchor" href="#self-supervised-learning"></a> Self-supervised learning</h2>
+<h3 id="pretrain-network"><a class="markdownIt-Anchor" href="#pretrain-network"></a> Pretrain Network</h3>
+<img src="/2021/09/17/CV-W05/image-20210918001029929.png" alt="image-20210918001029929" style="zoom:50%;">
+<p>当数据量大（训练成本大 ）的时候可以选择使用Pretrain Model 作为feature extractor。</p>
+<p>即将CNN model 分成feature extractor 以及 classifier 部分，使用已经训练好的部分作为feature extractor（常用VGG，Resnet等）可以有效减小训练时间成本等。</p>
+<h3 id="self-supervised"><a class="markdownIt-Anchor" href="#self-supervised"></a> Self-Supervised</h3>
+<p>在训练庞大数据集的时候，如果使用监督学习，则需要提供大量标注后的数据。然而 数据标注的成本是有限且巨大的。因此我们介绍了一种Self-supervised learning。自监督学习是一种非监督学习的特殊形式。监督是通过数据来计算代理损失（Proxy Loss）。模型需要被强制学习中间良好的表示方法（learn good intermediate representation）来解决自监督辅助任务(pretext task)，而不是单纯的学习classification task。</p>
+<p>而评估自学习任务的方法不是单纯检测accuracy等，而是通过下流任务学到的特征来进行评估。</p>
+<p><img src="/2021/09/17/CV-W05/image-20210918005113669.png" alt="image-20210918005113669"></p>
+<p>自监督的 Pretrain - Finetune 流程：首先从大量的<strong>无标签数据</strong>中通过 pretext 来训练网络，得到预训练的模型，然后对于新的下游任务，和监督学习一样，迁移学习到的参数后微调即可。所以自监督学习的能力主要由下游任务的性能来体现。</p>
+<p>以下是几种常见的辅助任务pretext task</p>
+<h3 id="image-based"><a class="markdownIt-Anchor" href="#image-based"></a> Image Based</h3>
+<h4 id="relative-positioning"><a class="markdownIt-Anchor" href="#relative-positioning"></a> Relative Positioning</h4>
+<p>Pair classification。</p>
+<p>将图片切割成n个spatial arrangements，分辨两个patch的相对位置。</p>
+<img src="/2021/09/17/CV-W05/image-20210918011246277.png" alt="image-20210918011246277" style="zoom:50%;">
+<h4 id="colourization"><a class="markdownIt-Anchor" href="#colourization"></a> Colourization</h4>
+<p>从灰色图片中用训练的network预测像素颜色。</p>
+<img src="/2021/09/17/CV-W05/image-20210918011424741.png" alt="image-20210918011424741" style="zoom: 67%;">
+<h4 id="exemplar-networks"><a class="markdownIt-Anchor" href="#exemplar-networks"></a> Exemplar networks</h4>
+<p>对图片使用随机转换，训练一个CNN来分辨不同的随即转换类型。</p>
+<img src="/2021/09/17/CV-W05/image-20210918011508167.png" alt="image-20210918011508167" style="zoom:67%;">
+<h4 id="rotation"><a class="markdownIt-Anchor" href="#rotation"></a> Rotation</h4>
+<img src="/2021/09/17/CV-W05/image-20210918011622566.png" alt="image-20210918011622566" style="zoom:67%;">
+<p>对图像试试旋转，训练CNN来分辨旋转。</p>
+<h3 id="video-based"><a class="markdownIt-Anchor" href="#video-based"></a> Video Based</h3>
+<h4 id="shuffle-and-learn"><a class="markdownIt-Anchor" href="#shuffle-and-learn"></a> Shuffle and Learn</h4>
+<p>将视频的帧打乱训练。</p>
+<h4 id="odd-one-out-networks"><a class="markdownIt-Anchor" href="#odd-one-out-networks"></a> Odd-One-Out Networks</h4>
+<p>训练CNN来分辨奇怪的视频顺序。</p>
+<h4 id="sorting-sequence"><a class="markdownIt-Anchor" href="#sorting-sequence"></a> Sorting Sequence</h4>
+<p>训练CNN来预测视频帧的顺序。</p>
+<p>自监督学习： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/108906502?utm_source=wechat_session&amp;utm_medium=social&amp;utm_oi=810536531780587520">https://zhuanlan.zhihu.com/p/108906502?utm_source=wechat_session&amp;utm_medium=social&amp;utm_oi=810536531780587520</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"># 深度学习</a>
+                    
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"># 计算机视觉</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/09/18/CV-W06/">CV-W06</a>
+            
+            
+            <a class="next" rel="next" href="/2021/09/07/MSDS-L05/">MSDS-L05</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Echoid | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
