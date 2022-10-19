@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Echo Zhou">
+
+
+
+
+
+<title>ADB-L11/12 Concurrency Control 4 | Echo Zhou</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Echo&#39;s BlackHole</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/cv">CV</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Echo&#39;s BlackHole</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/cv">CV</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">ADB-L11/12 Concurrency Control 4</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Echo Zhou</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 17, 2021&nbsp;&nbsp;1:24:16</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/COMP90050/">COMP90050</a>
+                            
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Words:
+                        <a href="">1.6k</a>  
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Time:
+                        <a href="">5min</a>  
+                        </span>
+                    
+
+
+
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="l1112-concurrency-control-4"><a class="markdownIt-Anchor" href="#l1112-concurrency-control-4"></a> L11/12 Concurrency Control 4</h1>
+<p>多重并发控制的transaction仍可能面临conflict的问题，所以我们还是要尽可能找的更好的解决方案。</p>
+<p>本文将介绍一些基于锁的扩展方案。</p>
+<h2 id="粒度锁granularity-of-locks"><a class="markdownIt-Anchor" href="#粒度锁granularity-of-locks"></a> 粒度锁（Granularity of Locks）</h2>
+<ul>
+<li>建立层次关系（Hierarchy）</li>
+<li>锁在任意等级都可能存在</li>
+<li>锁将自动授予给它的后代</li>
+</ul>
+<p>如果将整个DB都锁住，Conflict将会减小，但是表现很差。</p>
+<p>如果只锁住单个记录层，需要更多锁，但是表现更好。</p>
+<p><img src="/2021/07/17/ADB-L11/image-20210717013119965.png" alt="image-20210717013119965"></p>
+<h3 id="粗粒度的意向锁定模式intention-mode-locks-on-coarse-granules"><a class="markdownIt-Anchor" href="#粗粒度的意向锁定模式intention-mode-locks-on-coarse-granules"></a> 粗粒度的意向锁定模式（Intention mode Locks on Coarse granules）</h3>
+<ul>
+<li>“+” 授予</li>
+<li>“-” 延迟</li>
+<li>X eXclusive lock</li>
+<li>S Shared Lock</li>
+<li>U Update Lock</li>
+<li>IS Intent to set Shared locks at finer granurity</li>
+<li>IX Intent to set shared or eXclusive locks at finer granularity</li>
+<li>SIX a coarse granularity shared lock with an Intent to set finer granularity exclusive locks</li>
+</ul>
+<p>意向锁：如果一个节点意向加意向锁，则说明他的下层正在被加锁。对任意节点加锁的时候必须对它的上层加意向锁。</p>
+<h3 id="加锁规则"><a class="markdownIt-Anchor" href="#加锁规则"></a> 加锁规则</h3>
+<ol>
+<li>从根到叶进行加锁</li>
+<li>从叶到根进行释放</li>
+<li>如果要将一个非根节点加一个S或者IS，节点的其中一个parent必须保持IS或者IS以上模式（IS，IX，S，SIX，U，X）</li>
+<li>如果要将一个非根节点加一个X，U，SIX，IS，节点的其中一个parent必须保持IX或者IX以上模式（IX，SIX，U，X）</li>
+</ol>
+<h3 id="意向加锁模式intent-lock-modes"><a class="markdownIt-Anchor" href="#意向加锁模式intent-lock-modes"></a> 意向加锁模式（Intent Lock Modes）</h3>
+<ul>
+<li>IS 允许IS 和S加在更细的粒度里加锁，同时可以防止其他X在当前节点操作。</li>
+<li>IX 允许IS，S，IX，SIX，U，X加在更细的粒度里加锁，同时可以防止被加上其他S，SIX，X，U锁。</li>
+<li>S 允许节点及其后代在更细的粒度中进行阅读，同时可以防止被加上其他IX，X和SIX。</li>
+<li>SIX像IS一样允许它在当前节点以及子代节点中阅读。同时可以防止被加上其他X，U，IX，SIX和S的在当前节点或者它的子代进行操作。但是允许IX，U和X在更细的粒度中进行操作。</li>
+<li>U 允许节点及其后代在更细的粒度中进行阅读，同时可以防止被加上其他X, U, SIX, IX and IS模式在它或者它的子代中操作。</li>
+<li>X 允许所有对当前节点的写入，并且防止被加上其他X，U，S，SIX，IX在当前节点和它的子代进行lock。</li>
+</ul>
+<img src="/2021/07/17/ADB-L11/image-20210717015145582.png" alt="image-20210717015145582" style="zoom:67%;">
+<h3 id="例"><a class="markdownIt-Anchor" href="#例"></a> 例</h3>
+<img src="/2021/07/17/ADB-L11/image-20210717015503444.png" alt="image-20210717015503444" style="zoom:50%;">
+<p>会导致DeadLock，因为T1和T2进行Slock之后，Slock会防止其他IX，X和SIX模式。</p>
+<p>因此T1的XLOCK被T2的SLOCK制约，导致的dead lock。</p>
+<h2 id="two-version-locking"><a class="markdownIt-Anchor" href="#two-version-locking"></a> Two-Version Locking</h2>
+<ul>
+<li>允许更多并发</li>
+<li>允许一个transaction编写临时版本（Tentative version）</li>
+<li>另一个transaction需要从Commited版本中读取 （Read）</li>
+<li>读取只有在一个transaction被commited时才会发生delay，而不是在整个transaction发生的时候都会被delay。</li>
+<li>Commit是时间通常都会比整个transaction的时间短</li>
+</ul>
+<img src="/2021/07/17/ADB-L11/image-20210717020208348.png" alt="image-20210717020208348" style="zoom:67%;">
+<h2 id="嵌套transaction和锁-nested-transactions-and-locking"><a class="markdownIt-Anchor" href="#嵌套transaction和锁-nested-transactions-and-locking"></a> 嵌套Transaction和锁 （Nested Transactions and Locking）</h2>
+<ul>
+<li>嵌套Transaction在用锁需要特别注意</li>
+<li>目标是每组嵌套事务都是一个单一实体，必须防止观察其他此类组的部分影响</li>
+<li>每个子事务（sub transaction）不能观察组合中的其他事务</li>
+<li>每个子事务在完成的时候由祖先继承</li>
+<li>继承锁将递归继承</li>
+<li>这确保了root、top level有最终决定权</li>
+<li>父母不能和孩子并发进行，但是孩子可以用父母的锁</li>
+<li>访问同一对象的同一级别的子事务轮流获取父事务的锁以实现可序列化</li>
+</ul>
+<h2 id="优化并发控制optimistic-concurrency-control"><a class="markdownIt-Anchor" href="#优化并发控制optimistic-concurrency-control"></a> 优化并发控制（Optimistic Concurrency Control）</h2>
+<p>当冲突很少时，transaction可以在不管理锁和等待锁的情况下执行操作，同时不需要等待锁的时间。对吞吐量有要求。</p>
+<ul>
+<li>无锁数据</li>
+<li>在提交前，每个transaction都会确认没有其他transaction编辑了数据。（锁的持续时间很短）</li>
+<li>如果发现了冲突，transaction将会重复尝试</li>
+<li>如果没有冲突，则会改变并提交。</li>
+</ul>
+<ol>
+<li>
+<p>向后验证（Backward Validation）</p>
+<p>创建它在执行期间执行的读取集</p>
+<p>查看与它重叠的任何其他事务是否更改了它已读取的任何内容</p>
+<p>如果是，则采取行动</p>
+</li>
+<li>
+<p>向前验证（Forward Validation）</p>
+<p>创建它在执行期间执行的写集</p>
+<p>查看与它重叠的任何其他事务是否已读取它已写入的任何内容</p>
+<p>我们假设它们仍然处于活动状态</p>
+<p>做出以下选择</p>
+<ol>
+<li>延迟当前事务</li>
+<li>中止所有冲突的事务</li>
+</ol>
+<p>必须根据成本做出决定</p>
+</li>
+</ol>
+<h2 id="快照隔离snapshot-isolation"><a class="markdownIt-Anchor" href="#快照隔离snapshot-isolation"></a> 快照隔离（Snapshot Isolation）</h2>
+<ul>
+<li>与可串行化不同</li>
+<li>一些 DBMS 中的热门选项 例如oracle</li>
+<li>和优化并发控制的心态（mentality）有关</li>
+<li>与我们看到的简单锁定机制相比具有非常高的吞吐量</li>
+<li>规则是transaction读取对象和写入时，检查需要写入的内容是否已更改 - 如果没有更改，则允许提交 - 否则必须中止 - 其他更改，即不检查读取的内容</li>
+</ul>
+<h2 id="基于时间印章的并发控制time-stamp-based-concurrency-control"><a class="markdownIt-Anchor" href="#基于时间印章的并发控制time-stamp-based-concurrency-control"></a> 基于时间印章的并发控制（Time-stamp-based Concurrency Control）</h2>
+<ul>
+<li>某种程度来看这是一种乐观的并发控制（Optimistic concurrency control）</li>
+<li>验证过程和之前的乐观并发控制类似</li>
+<li>主要区别即transaction是在执行操作时发生的</li>
+<li>在每个操作和中止中的验证是极其重要的，需要反应迅速。</li>
+<li>Transaction和操作是基于时间戳顺序的。</li>
+</ul>
+<h2 id="多版本时间印章multiversion-time-stamping"><a class="markdownIt-Anchor" href="#多版本时间印章multiversion-time-stamping"></a> 多版本时间印章（Multiversion Time Stamping）</h2>
+<ul>
+<li>有些人实际上认为时间戳是悲观的而不是乐观的，因为它们会导致基于单个读取的大量中止</li>
+<li>在这个较新的版本中，维护同一对象的多个版本</li>
+<li>当事情不对齐（Align）时，正确的版本可以使用object</li>
+<li>例如，当读取操作迟到时，可以允许从旧版本读取，因此不会与现有事务发生冲突，无需中止</li>
+</ul>
+<h2 id="对比并发控制"><a class="markdownIt-Anchor" href="#对比并发控制"></a> 对比并发控制</h2>
+<ul>
+<li>时间戳排序根据开始时间（time of commencement）为事务分配order的</li>
+<li>在这方面锁定是动态的，因为顺序是在object访问时决定的</li>
+<li>对于只读（read-only）transaction，多版本时间戳排序很快</li>
+<li>当有很多update时建议使用two-phase locking，因为它有更少的aborts</li>
+<li>某种情况下 基于时间戳的方法会立即终止（abort immediate）效果很好</li>
+<li>在update次数不多的时候，优先选择乐观方法（Optimistic approach）</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"># 数据库</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/07/17/ADB-L13/">ADB-L13 Transaction & Networking(Part4)</a>
+            
+            
+            <a class="next" rel="next" href="/2021/07/17/ADB-L10/">ADB-L10 Concurrency Control 3</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Echo Zhou | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

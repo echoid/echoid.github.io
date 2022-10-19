@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Echo Zhou">
+
+
+
+
+
+<title>ADB-L10 Concurrency Control 3 | Echo Zhou</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Echo&#39;s BlackHole</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/cv">CV</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Echo&#39;s BlackHole</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/cv">CV</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">ADB-L10 Concurrency Control 3</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Echo Zhou</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 17, 2021&nbsp;&nbsp;1:18:24</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/COMP90050/">COMP90050</a>
+                            
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Words:
+                        <a href="">1.7k</a>  
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Time:
+                        <a href="">6min</a>  
+                        </span>
+                    
+
+
+
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="l10-concurrency-control-3"><a class="markdownIt-Anchor" href="#l10-concurrency-control-3"></a> L10 Concurrency Control 3</h1>
+<p>Concurrency Control: 并发控制。为了解决多个transaction同时发生时候，可能出现的问题。</p>
+<h2 id="锁lock"><a class="markdownIt-Anchor" href="#锁lock"></a> 锁（LOCK）</h2>
+<h3 id="锁的类型"><a class="markdownIt-Anchor" href="#锁的类型"></a> 锁的类型</h3>
+<p>在不兼容模式下（Incompatible mode），如果一个object被另一个transaction上锁时，则不可以被另一个transaction授予锁（Grant Lock）</p>
+<ol>
+<li>
+<p>SLOCK (Shard Lock)</p>
+<p>允许其他transaction阅读，但是不允许写入或者修改共享资源。</p>
+<p>Allows: Read</p>
+<p>Not Allow: Write/ Modify the share resources</p>
+</li>
+<li>
+<p>XLOCK (Exclusive Lock)</p>
+<p>不允许其他transaction读写修改。</p>
+</li>
+</ol>
+<h3 id="锁的兼容性表格"><a class="markdownIt-Anchor" href="#锁的兼容性表格"></a> 锁的兼容性表格</h3>
+<p><img src="/2021/07/17/ADB-L10/image-20210716232717011.png" alt="image-20210716232717011"></p>
+<p>由上图可见，如果object是Free状态下，则可以任意加SLOCK 或者 XLOCK。</p>
+<p>如果object是SLOCK -&gt; SLOCK的状态下，将会立即授予，并且保持SLOCK，</p>
+<p>如果object是SLOCK -&gt; XLOCK的状态下 ，则会变成Conflict模式。请求将会被推迟直到变成兼容模式，模式保持SLOCK。</p>
+<p>如果object是XLOCK -&gt; SLOCK的状态下 ，则会变成Conflict模式。请求将会被推迟直到变成兼容模式，模式保持XLOCK。</p>
+<p>如果object是XLOCK -&gt; XLOCK的状态下 ，则会变成Conflict模式。请求将会被推迟直到变成兼容模式，模式保持XLOCK。</p>
+<h3 id="transaction-actions"><a class="markdownIt-Anchor" href="#transaction-actions"></a> Transaction Actions</h3>
+<ol>
+<li>Read</li>
+<li>Write</li>
+<li>XLOCK</li>
+<li>SLOCK</li>
+<li>UNLOCK</li>
+<li>BEGIN</li>
+<li>COMMIT （如果transaction里由锁则需要UNLOCK）</li>
+<li>ROLLBACK （如果transaction里由锁则需要UNLOCK，如果有WRITE A 则需要写成 WRITE(UNDO) A）</li>
+</ol>
+<h4 id="例1"><a class="markdownIt-Anchor" href="#例1"></a> 例1：</h4>
+<img src="/2021/07/17/ADB-L10/image-20210716234216152.png" alt="image-20210716234216152" style="zoom:50%;">
+<ul>
+<li>由 Begin 和End 开头结尾</li>
+<li>Read A 前应该SLOCK A，不允许其他transaction对他进行编辑。</li>
+<li>WRITE B前应该XLOCK，不允许其他transaction对他进行阅读或者编辑。</li>
+<li>将AB UNLOCK</li>
+</ul>
+<h4 id="例2"><a class="markdownIt-Anchor" href="#例2"></a> 例2：</h4>
+<img src="/2021/07/17/ADB-L10/image-20210716234518881.png" alt="image-20210716234518881" style="zoom:50%;">
+<ul>
+<li>因为在ROLLBACK前出现了WRITE B，则需要将ROLLBACK改写成UNDO</li>
+</ul>
+<h2 id="隔离性理论isolation-theorem"><a class="markdownIt-Anchor" href="#隔离性理论isolation-theorem"></a> 隔离性理论（ISOLATION Theorem）</h2>
+<ul>
+<li>Transaction：一个由READ, WRITE, SLOCK, XLOCK 行为组成的系列object，由COMMIT or ROLLBACK 结尾。</li>
+<li>如果Transaction中的每一个READ,WRITE 和UNLOCK都被相应的LOCK operation（corresponding lock operation）覆盖了，则说明这个transaction的结构良好。（<strong>well formed</strong>）</li>
+<li>如果没有被授予冲突授权（Conflicting grants），则说明历史记录是合法的（<strong>Legal</strong>）。</li>
+<li>我们称所有的LOCK行为都是在UNLOCK之前的transaction为 二相（<strong>Two phase</strong>）</li>
+</ul>
+<hr>
+<ul>
+<li>Locking theorem: 如果所有transaction 都是well formed 且 two-phased的，那么任何legal的历史记录都将被隔离。</li>
+<li>Locking theorem(反向): 如果所有transaction 都不是well formed 且不是 two-phased的，那么这个transaction则是一个虫洞（Wormhole transaction）</li>
+<li>Rollback theorem: 如果一个更新（Update）transaction在ROLLBACK前做了UNLOCK，则不是一个两相 two-phase</li>
+</ul>
+<h2 id="可串行化serializability"><a class="markdownIt-Anchor" href="#可串行化serializability"></a> 可串行化（Serializability）</h2>
+<ul>
+<li>在两相锁定（two-phase locking）的时候可以保证可串行化的实施。</li>
+<li>一组transaction的并发执行（Concurrent execution）等于这组transaction的串行执行。（Serial execution）。</li>
+<li>可串行化可以达成隔离性（Isolation）性质。</li>
+<li>当Object之间是independent的时候执行将会完全不同。</li>
+<li>可串行化保证了transaction的全部锁都能在phase 2开始前锁定。</li>
+<li>防止transaction的“in between”状态（两者之间）。</li>
+</ul>
+<h2 id="效率隔离性程度-degree-of-isolation"><a class="markdownIt-Anchor" href="#效率隔离性程度-degree-of-isolation"></a> 效率/隔离性程度 （Degree of isolation）</h2>
+<p>当锁越多时，我们的transaction将会获得更多的限制。</p>
+<h3 id="degree-3"><a class="markdownIt-Anchor" href="#degree-3"></a> Degree 3</h3>
+<p>三级隔离将不会丢失任何更新（Lost Update），无脏读或者重复阅。</p>
+<p>这称之为正确的的isolation (True isolation)。</p>
+<p>序列化读（serializable）这也就是最高级别，保证事务之间不会有任何踩踏，每个事务都可以认为只有它自己在操作数据库</p>
+<img src="/2021/07/17/ADB-L10/image-20210717004525653.png" alt="image-20210717004525653" style="zoom: 67%;">
+<h3 id="degree2"><a class="markdownIt-Anchor" href="#degree2"></a> Degree2</h3>
+<p>没有丢失更新或者脏读</p>
+<p>可重复读（repeatable read）可重复读，即是在上一个级别的基础上，保证不会在一个事务内两次select同一条数据会出现变化，即是别的事务对你select的对象进行update操作不会影响。</p>
+<p>但是，如果是insert操作，在这个隔离级别还是会受到影响。事务A开启事务，并select一段有范围的数据，然后事务B开启事务，在先前A事务select的那段有范围的数据中insert一条数据，然后提交事务，接着事务A再select出来这段数据，发现数据多了一条，这种情况叫幻读（Phantom Read）</p>
+<img src="/2021/07/17/ADB-L10/image-20210717004653523.png" alt="image-20210717004653523" style="zoom: 67%;">
+<p>图中A重复读了两次。</p>
+<h3 id="degree1"><a class="markdownIt-Anchor" href="#degree1"></a> Degree1</h3>
+<p>没有丢失更新</p>
+<p>提交读（read committed）既然读取别的事务未提交的数据很不安全，那么在上一个等级完全裸奔的情况下，增加一个要求：事务读取的数据，都是别的事务已经提交了的。但是只要在还没达到串行执行的情况下，总会有问题的，事务A select了一条数据，接着事务B update 这条数据，然后commit，这时候A还未提交，A再回来读这条数据，发现数据居然变了，按照我们之前所说，我们的目标是：对于一个事务本身来说，它所感知的数据库，应该只有它自己在操作，那么A会觉得自己并没有更新数据啊，怎么数据突然变了，这种情况叫做 不可重复读（Non-repeatable reads）</p>
+<img src="/2021/07/17/ADB-L10/image-20210717005017059.png" alt="image-20210717005017059" style="zoom: 67%;">
+<h3 id="degree-0"><a class="markdownIt-Anchor" href="#degree-0"></a> Degree 0</h3>
+<p>未提交读（read uncommitted）这个等级是最低等级，也可以认为，事务之间完全不隔离，事务A开始一个事务，接着事务B开始，事务B对数据C继续update，这时候，A读取了B未提交（commit）的数据，这种情况叫做脏读（dirty read）。这个时候要是事务B遇到错误必须rollback，那么A读取的数据就完全是错的。可以想象这样完全不隔离的状态下，我们相对于数据库的业务方程序员写的一个sql，提交个db的执行引擎，返回的结果是多么不可确定啊</p>
+<img src="/2021/07/17/ADB-L10/image-20210717005503799.png" alt="image-20210717005503799" style="zoom:67%;">
+<h2 id="幻影和gap锁phantoms-and-predicate-locks"><a class="markdownIt-Anchor" href="#幻影和gap锁phantoms-and-predicate-locks"></a> 幻影和GAP锁（Phantoms and Predicate locks ）</h2>
+<p>如果锁在粒度最小的地方产生时我们应当执行更新，否则将会被deley。</p>
+<img src="/2021/07/17/ADB-L10/image-20210717010447798.png" alt="image-20210717010447798" style="zoom:50%;">
+<p>Transaction在所有tuple都满足条件后实施了分享锁SLOCK。</p>
+<p>然而在授予这些锁之后，可能会有新的transaction企图在当前transaction运行的时候加入一条新的满足所有条件的数据。</p>
+<h3 id="幻影-phantoms"><a class="markdownIt-Anchor" href="#幻影-phantoms"></a> 幻影 （Phantoms ）</h3>
+<p>GAP锁（Predicate lock）可以解决幻读问题，GAP锁不是锁定记录，而是锁定条件。</p>
+<p>页锁（Page Lock）也可以解决幻读问题，将红发和蓝眼的页锁住，这样满足条件的信息将不能插入或者更新。</p>
+<p>高容量系统还会用如下机制：</p>
+<ol>
+<li>Key Range locks：保护B-tree。</li>
+<li>Hole Locks：保护uncommited 删除的空间。</li>
+</ol>
+<h3 id="gap-锁-predicate-lock"><a class="markdownIt-Anchor" href="#gap-锁-predicate-lock"></a> GAP 锁 （Predicate lock）</h3>
+<p>对search的范围加锁，全表扫描直接对整张表加锁，可防止phantom read</p>
+<p>GAP锁的问题：</p>
+<ol>
+<li>NP hard</li>
+<li>很难掌握predicated时间</li>
+<li>悲观（Pessimistc Approach）</li>
+</ol>
+<h2 id="并发控制协议strict-two-phase-locking-s2pl"><a class="markdownIt-Anchor" href="#并发控制协议strict-two-phase-locking-s2pl"></a> 并发控制协议（Strict two-phase locking (S2PL)）</h2>
+<ul>
+<li>
+<p>没有收缩阶段。</p>
+</li>
+<li>
+<p>当Commit或abort发生时，锁必须被释放。</p>
+</li>
+<li>
+<p>比二相 locking更严格。</p>
+</li>
+<li>
+<p>进一步减少并发concurrency和效率efficiency</p>
+</li>
+<li>
+<p>有效防止级联中止（preventing cascading aborts）</p>
+</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"># 数据库</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/07/17/ADB-L11/">ADB-L11/12 Concurrency Control 4</a>
+            
+            
+            <a class="next" rel="next" href="/2021/03/10/MAST90139/">SMDS-Week1</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Echo Zhou | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

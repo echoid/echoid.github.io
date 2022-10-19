@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Echo Zhou">
+
+
+
+
+
+<title>CV-W07-Depth and 3D | Echo Zhou</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Echo&#39;s BlackHole</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/cv">CV</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Echo&#39;s BlackHole</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/cv">CV</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">CV-W07-Depth and 3D</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Echo Zhou</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 19, 2021&nbsp;&nbsp;1:41:39</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/COMP90086/">COMP90086</a>
+                            
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Words:
+                        <a href="">1.5k</a>  
+                        </span>
+                    
+                    
+                        <span class="post-count">
+                    Time:
+                        <a href="">6min</a>  
+                        </span>
+                    
+
+
+
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="computer-vision-week7-depth-and-3d"><a class="markdownIt-Anchor" href="#computer-vision-week7-depth-and-3d"></a> Computer Vision Week7: Depth and 3D</h1>
+<h2 id="cues-for-depth"><a class="markdownIt-Anchor" href="#cues-for-depth"></a> Cues for depth</h2>
+<p>2D图片中包含着不同的信息可以透露出图片的深度。将多种信息结合起来（如stereo+motion）可以获得更准确的深度信息。</p>
+<ul>
+<li>Perspective 透视</li>
+<li>Texture 纹理</li>
+<li>Object position and occlusion 物体位置和遮挡</li>
+<li>Object knowledge 物体知识</li>
+<li>Binocular stereo 双目立体</li>
+<li>Motion parallax 运动视差</li>
+</ul>
+<h2 id="stereo立体"><a class="markdownIt-Anchor" href="#stereo立体"></a> Stereo（立体）</h2>
+<p>Stereo depth是用于计算视差值（disparity ）的</p>
+<img src="/2021/09/19/CV-W07/image-20210919015526331.png" alt="image-20210919015526331" style="zoom:50%;">
+<ul>
+<li>Stereo Pair：由两台在平移位置拍摄的同一物品的两张照片叫做stereo pair。</li>
+</ul>
+<p>假设：</p>
+<p>两个cameras和baseline都是平行的，两个camera centre在同一高度上，focal lengths f是一样的。</p>
+<p>目标：</p>
+<p>算出Z的长度</p>
+<img src="/2021/09/19/CV-W07/image-20210919022348332.png" alt="image-20210919022348332" style="zoom:50%;">
+<h3 id="basic-stereo-matching-algorithm"><a class="markdownIt-Anchor" href="#basic-stereo-matching-algorithm"></a> Basic stereo matching algorithm</h3>
+<img src="/2021/09/19/CV-W07/image-20210919023337843.png" alt="image-20210919023337843" style="zoom: 67%;">
+<p>X为每一个一张图片的像素，扫描X所在的另一张图片的horizontal line，来找到与X最为相似的点X‘。</p>
+<p>计算  X与X’的差距，并且计算深度 = ( fB )/(X-X’)</p>
+<p>以下两种公式是用来计算两个point的similarity的</p>
+<img src="/2021/09/19/CV-W07/image-20210919024304724.png" alt="image-20210919024304724" style="zoom:50%;">
+<img src="/2021/09/19/CV-W07/image-20210919024318551.png" alt="image-20210919024318551" style="zoom:50%;">
+<h3 id="effect-of-window-size"><a class="markdownIt-Anchor" href="#effect-of-window-size"></a> Effect of window size</h3>
+<img src="/2021/09/19/CV-W07/image-20210919024921631.png" alt="image-20210919024921631" style="zoom: 50%;">
+<p>窗口更小，粒度更细，但是noise更多</p>
+<p>窗口更大，更平滑的深度，但缺乏细节</p>
+<h3 id="additional-constraints"><a class="markdownIt-Anchor" href="#additional-constraints"></a> Additional constraints</h3>
+<ul>
+<li>Uniqueness: Point应该是1 to 1 matching的</li>
+<li>Ordering: 对应点的顺序应当保持一致</li>
+<li>Smoothness: 视差值（disparity ）应该平滑变化</li>
+</ul>
+<img src="/2021/09/19/CV-W07/image-20210919025609801.png" alt="image-20210919025609801" style="zoom: 50%;">
+<p>E为最终的similarity formula。</p>
+<h3 id="rectification"><a class="markdownIt-Anchor" href="#rectification"></a> Rectification</h3>
+<p>上面提到过，image plane需要保持平行，如果image plane不是平行的，则需要使用Rectification来找到能使两个plane变为平行的projective transform。</p>
+<h2 id="single-view-depth"><a class="markdownIt-Anchor" href="#single-view-depth"></a> Single view depth</h2>
+<h3 id="supervised-depth-classification"><a class="markdownIt-Anchor" href="#supervised-depth-classification"></a> Supervised depth classification</h3>
+<p>将深度估测看为一个classification task，通过训练每一张图，来预测每个点距离相机的距离。</p>
+<h4 id="loss-function"><a class="markdownIt-Anchor" href="#loss-function"></a> Loss Function</h4>
+<p>由于图片中的深度差异很大，为了减少这些差异，我们经常会做一个log transformation。</p>
+<p>场景的平均深度可能会有很大差异（eg 壁橱 和体育场）。为了阻止模型简单地学习平均深度，我们有时需要考虑scale loss function 来应对不同场景。比如体育馆的场景事务深度很长，loss 往往更大。而壁橱的深度较小，需要更精确的loss，所以要做scaling。</p>
+<p>由于标注过图片深度的数据（depth map）需要特殊仪器才能获取(LiDAR)，我们也可以用Stereo image pairs来训练模型, 普通相机在拍摄时就可以创建Stereo image pairs。</p>
+<img src="/2021/09/19/CV-W07/image-20210919153646123.png" alt="image-20210919153646123" style="zoom:50%;">
+<p>模型输入：从Stereo pair获取的一张图片</p>
+<p>通过学习stereo pair 中另一个的disparity map，来预测另一张图片。</p>
+<p>Loss: Appearance loss(原始图和预测图的差异) + Disparity smoothness loss + Left-right consistency loss（两个disparity map的差异）</p>
+<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
+<p>优点：</p>
+<p>使用Machine learning方法我们不需要multiple views 或者stereo camera</p>
+<p>缺点：</p>
+<p>物品的边缘深度模糊（和edge map结合一起可以让模型表现更好）</p>
+<p>模型无法很好地泛化到新的环境中。</p>
+<h2 id="multi-view-depth"><a class="markdownIt-Anchor" href="#multi-view-depth"></a> Multi-view depth</h2>
+<p>Multiview Depth 可以解决如下问题</p>
+<ol>
+<li>相机运动 将两个view关联起来的变换（camera translation or rotation）是什么？</li>
+<li>相机参数 （focal ，length）</li>
+<li>Scene geometry 已知两张view，求拍摄view相机的3D位置</li>
+</ol>
+<h2 id="camera-calibration-相机校准"><a class="markdownIt-Anchor" href="#camera-calibration-相机校准"></a> Camera Calibration 相机校准</h2>
+<h3 id="相机参数"><a class="markdownIt-Anchor" href="#相机参数"></a> 相机参数</h3>
+<ol>
+<li>Intrinsic parameters： 和成像有关系的参数（focal length, optical centre, lens<br>
+distortion)</li>
+<li>Extrinsic parameters：和外界有关系的参数（如相机位置，朝向）</li>
+<li>Camera calibration 相机校准是一个寻找Intrinsic parameters的方法</li>
+</ol>
+<p><img src="/2021/09/19/CV-W07/image-20210919162919787.png" alt="image-20210919162919787"></p>
+<p>在world和image points之间进行转换时，可以使用homogeneous（或projective）coordinates。</p>
+<p>每个image point可以用三个数字表达。</p>
+<p>第三个数字代表当前与当前image plane的距离。</p>
+<img src="/2021/09/19/CV-W07/image-20210920015342933.png" alt="image-20210920015342933" style="zoom:50%;">
+<p>Camera Calibration 相机校准需要一个校准目标，一个具有已知图案的平面表面，可以通过特征检测(feature detection )轻松detect / track. （例如 棋盘，正方形 or 圆）</p>
+<p>需要给棋盘等calibration target s拍摄不同角度姿势的照片来解决intrinsic 和 extrinsic 参数的问题。</p>
+<img src="/2021/09/19/CV-W07/image-20210920020837714.png" alt="image-20210920020837714" style="zoom:50%;">
+<h4 id="projection-model"><a class="markdownIt-Anchor" href="#projection-model"></a> Projection model</h4>
+<p>上面提到过，如果plane不是平行的则需要做projection model，projection model的表达如下。[R|T] 为Rotation 和 translation的信息。</p>
+<img src="/2021/09/19/CV-W07/image-20210920020904411.png" alt="image-20210920020904411" style="zoom:50%;">
+<p>简单起见，假设校准目标与平面 z=0 对齐</p>
+<p>所以问题可以被简化为</p>
+<img src="/2021/09/19/CV-W07/image-20210920021151601.png" alt="image-20210920021151601" style="zoom:67%;">
+<p>可以看到所有信息都被H所包含，而我们的目标就是solve H。</p>
+<p>注意在这个模型里面，我们暂时不考虑镜头失真问题(lens distortion)。因为后面可以用Best fit H 估测镜头失真参数（lens distortion）。</p>
+<p>最后我们的模型输出为camera matrix和 lens distortion 参数。</p>
+<h4 id="alternative-methods"><a class="markdownIt-Anchor" href="#alternative-methods"></a> Alternative methods</h4>
+<ol>
+<li>用Planar surfaces 校准， 优点是不需要special calibration target。缺点是检测追踪关键点有困难</li>
+<li>从manufacturer specification中寻找相机参数，优点是不需要计算。缺点是只能给fixed focal length 的相机使用。</li>
+</ol>
+<h2 id="epipolar-geometry"><a class="markdownIt-Anchor" href="#epipolar-geometry"></a> Epipolar Geometry</h2>
+<p>Epipolar geometry是用于预测camera transformation的一种方法。</p>
+<img src="/2021/09/19/CV-W07/image-20210920023700858.png" alt="image-20210920023700858" style="zoom: 50%;">
+<p>C, C’, x, x’ 和 X 是共面coplanar，5个点在同一个平面上。</p>
+<img src="/2021/09/19/CV-W07/image-20210920024512397.png" alt="image-20210920024512397" style="zoom: 50%;">
+<p>红色线代表Baseline，连接两个camera centers的线。</p>
+<p>蓝色点代表Epipole， baseline 与image plane的焦点，另一个camera center的投影</p>
+<p>灰色平面代表epipolar plane，包含着baseline的平面</p>
+<p>绿色线代表Epipolar line，epipolar平面与image的焦点。</p>
+<img src="/2021/09/19/CV-W07/image-20210920025647078.png" alt="image-20210920025647078" style="zoom:50%;">
+<p>从这张图我们可以看到epipolar并不是一个固定的plane，plane位置取决于X点以及图片位置。</p>
+<img src="/2021/09/19/CV-W07/image-20210920025654228.png" alt="image-20210920025654228" style="zoom:50%;">
+<img src="/2021/09/19/CV-W07/image-20210920025704029.png" alt="image-20210920025704029" style="zoom:50%;">
+<p>在Forward motion中，两张图中的epipole的coordinates是一样的，</p>
+<p>coordinates是沿着e-e’移动的（也被称为focus of expansion）。</p>
+<h4 id="maths"><a class="markdownIt-Anchor" href="#maths"></a> Maths</h4>
+<p>Epipolar我们可以看成是 原X 是经过K matrix transformation变为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>X</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9467699999999999em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9467699999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.16666em;">^</span></span></span></span></span></span></span></span></span> 的。</p>
+<img src="/2021/09/19/CV-W07/image-20210920030148813.png" alt="image-20210920030148813" style="zoom:50%;">
+<img src="/2021/09/19/CV-W07/image-20210920030308332.png" alt="image-20210920030308332" style="zoom:50%;">
+<p>（也就是说 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi><mo>=</mo><mfrac><mi>x</mi><msup><mi>K</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">X = \frac{x}{K^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7463142857142857em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> ?)</p>
+<img src="/2021/09/19/CV-W07/image-20210920030700662.png" alt="image-20210920030700662" style="zoom:50%;">
+<p>其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>×</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">T\times R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> 是cross product。中间将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>×</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">T\times R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> 用E（essential matrix）来表示。等于0是因为三者都是coplanar?</p>
+<img src="/2021/09/19/CV-W07/image-20210920031542778.png" alt="image-20210920031542778" style="zoom:50%;">
+<p>当我们不知道K和K‘的时候应当如何求F？</p>
+<ol>
+<li>通过图像中的matching pair point （matching point可以用feature dection-RANSAC）找到可以解释对应关系的F</li>
+</ol>
+<p><img src="/2021/09/19/CV-W07/image-20210920031819012.png" alt="image-20210920031819012"></p>
+<ol start="2">
+<li>8 point algorithm。 需要八个matching point，将F看作linear system解决。需要外增加SVD步骤(singular value decomposition)来确保F的形式正确以便顺利解除。</li>
+</ol>
+<p><img src="/2021/09/19/CV-W07/image-20210920031919465.png" alt="image-20210920031919465"></p>
+<p>然而解决linear system只能给出一个scaling factor，想获取真正的距离还需要一个额外的 real world position。如果degrees of freedom太少的话则代表所有点都在一个coplanar上，camera translation 为0 （相当于只是相机rotation了）</p>
+<p><img src="/2021/09/19/CV-W07/image-20210920033144196.png" alt="image-20210920033144196"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"># 计算机视觉</a>
+                    
+                        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"># 深度学习</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/09/20/CV-W08/">CV-W08-Texture and shape</a>
+            
+            
+            <a class="next" rel="next" href="/2021/09/18/CV-W06/">CV-W06-Feature matching</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Echo Zhou | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
